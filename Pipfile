@@ -5,8 +5,15 @@ name = "pypi"
 
 [packages]
 pylint = "==2.13"
+numpy = "==1.26.0"
+pandas = "==2.2.2"
+matplotlib = "==3.8.0"
+scikit-learn = "==1.4.2"
+tensorflow = "==2.16.1"
+keras = "==3.2.1"
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
 python_version = "3.11"
