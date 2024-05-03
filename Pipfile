@@ -11,7 +11,9 @@ matplotlib = "==3.8.0"
 scikit-learn = "==1.4.2"
 tensorflow = "==2.16.1"
 keras = "==3.2.1"
+pyyaml = "==6.0.1"
 dvc = {extras = ["gdrive"], version = "==3.50.1"}
+keras-preprocessing = "==1.1.2"
 
 [dev-packages]
 ipykernel = "*"
