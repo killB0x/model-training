@@ -1,0 +1,30 @@
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python src/data/make_dataset.py
+    deps:
+    - path: data/external/test.txt
+      hash: md5
+      md5: a1cab28ad8554fd9269d31e5708469d0
+      size: 32724891
+    - path: data/external/train.txt
+      hash: md5
+      md5: 13fd241a41370119612d5b00b0433009
+      size: 93921671
+    - path: data/external/val.txt
+      hash: md5
+      md5: 7b1e28b1e91582c6f36e85517c3cc6ee
+      size: 46258330
+    outs:
+    - path: data/raw/test.csv
+      hash: md5
+      md5: 33e3e713088fc0fe1c94ccfaa491757a
+      size: 32728964
+    - path: data/raw/train.csv
+      hash: md5
+      md5: 23acfaf5713f02a1414c43149affe8c0
+      size: 93933366
+    - path: data/raw/val.csv
+      hash: md5
+      md5: 70d21cbf1b2742a34e83a16967ca5c1d
+      size: 46264147

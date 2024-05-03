@@ -4,7 +4,7 @@ Tokenizing the dataset.
 
 import pickle
 
-from keras.preprocessing.text import Tokenizer
+from keras_preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from sklearn.preprocessing import LabelEncoder
 import pandas as pd

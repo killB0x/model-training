@@ -48,7 +48,7 @@ def create_model():
 
     model.add(Dense(len(params['categories'])-1, activation='sigmoid'))
 
-    model.save('./models')
+    model.save('./models/model.keras')
 
 if __name__ == "__main__":
     create_model()

@@ -1,0 +1,35 @@
+stages:
+  get_data:
+    cmd: python src/data/make_dataset.py
+    deps:
+    - data/external/test.txt
+    - data/external/train.txt
+    - data/external/val.txt
+    outs:
+    - data/raw/test.csv
+    - data/raw/train.csv
+    - data/raw/val.csv
+
+  preprocess:
+    cmd: python src/data/preprocess_data.py
+    deps:
+    - data/raw/test.csv
+    - data/raw/train.csv
+    - data/raw/val.csv
+    outs:
+    - data/processed/char_index.pkl
+    - data/processed/x_test.pkl
+    - data/processed/x_train.pkl
+    - data/processed/x_val.pkl
+    - data/processed/y_test.pkl
+    - data/processed/y_train.pkl
+    - data/processed/y_val.pkl
+
+  create_model:
+    cmd: python models/create_model.py
+    params:
+    - params.yml
+    deps:
+    - data/processed/char_index.pkl
+    outs:
+    - models/model.keras
