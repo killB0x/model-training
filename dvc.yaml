@@ -26,9 +26,9 @@ stages:
     - data/processed/y_val.pkl
 
   create_model:
-    cmd: python models/create_model.py
+    cmd: python src/models/create_model.py
     params:
-    - params.yml
+    - params.yml:
     deps:
     - data/processed/char_index.pkl
     outs:

@@ -8,7 +8,7 @@ from keras.layers import Embedding, Conv1D, MaxPooling1D, Flatten, Dense, Dropou
 import yaml
 
 def create_model():
-    with open('./data/processed/char_index.pkl', encoding='utf-8') as f:
+    with open('./data/processed/char_index.pkl', 'rb') as f:
         char_index = pickle.load(f)
 
     with open('./params.yml', encoding='utf-8') as f:
