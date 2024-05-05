@@ -1,0 +1,100 @@
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python src/data/make_dataset.py
+    deps:
+    - path: data/external/test.txt
+      hash: md5
+      md5: a1cab28ad8554fd9269d31e5708469d0
+      size: 32724891
+    - path: data/external/train.txt
+      hash: md5
+      md5: 13fd241a41370119612d5b00b0433009
+      size: 93921671
+    - path: data/external/val.txt
+      hash: md5
+      md5: 7b1e28b1e91582c6f36e85517c3cc6ee
+      size: 46258330
+    outs:
+    - path: data/raw/test.csv
+      hash: md5
+      md5: 33e3e713088fc0fe1c94ccfaa491757a
+      size: 32728964
+    - path: data/raw/train.csv
+      hash: md5
+      md5: 23acfaf5713f02a1414c43149affe8c0
+      size: 93933366
+    - path: data/raw/val.csv
+      hash: md5
+      md5: 70d21cbf1b2742a34e83a16967ca5c1d
+      size: 46264147
+  preprocess:
+    cmd: python src/data/preprocess_data.py
+    deps:
+    - path: data/raw/test.csv
+      hash: md5
+      md5: 33e3e713088fc0fe1c94ccfaa491757a
+      size: 32728964
+    - path: data/raw/train.csv
+      hash: md5
+      md5: 23acfaf5713f02a1414c43149affe8c0
+      size: 93933366
+    - path: data/raw/val.csv
+      hash: md5
+      md5: 70d21cbf1b2742a34e83a16967ca5c1d
+      size: 46264147
+    outs:
+    - path: data/processed/char_index.pkl
+      hash: md5
+      md5: 941dc7e5461b0a429941866a00102b8c
+      size: 444
+    - path: data/processed/x_test.pkl
+      hash: md5
+      md5: 7f5fbed778d9ef617aa8deb518b714fc
+      size: 291358564
+    - path: data/processed/x_train.pkl
+      hash: md5
+      md5: dea96dc4ab5dbc8e5a6a0e2ebb31c4fd
+      size: 836619364
+    - path: data/processed/x_val.pkl
+      hash: md5
+      md5: bc347070a05b7a577842ad6ee6a42ef6
+      size: 412063364
+    - path: data/processed/y_test.pkl
+      hash: md5
+      md5: 739720df4bd3bd1db77822574ed96f65
+      size: 2913746
+    - path: data/processed/y_train.pkl
+      hash: md5
+      md5: 3fe5b85a1a8d40d88103244ff8c6a9dd
+      size: 8366354
+    - path: data/processed/y_val.pkl
+      hash: md5
+      md5: 0f6c9e06d11297f484b4baa67ef148d1
+      size: 4120794
+  create_model:
+    cmd: python src/models/create_model.py
+    deps:
+    - path: data/processed/char_index.pkl
+      hash: md5
+      md5: 941dc7e5461b0a429941866a00102b8c
+      size: 444
+    params:
+      params.yml:
+        batch_test: 5000
+        batch_train: 5000
+        categories:
+        - phishing
+        - legitimate
+        char_index: None
+        dataset_dir: ../dataset/small_dataset/
+        embedding_dimension: 50
+        epoch: 30
+        loss_function: binary_crossentropy
+        optimizer: adam
+        sequence_length: 200
+    outs:
+    - path: models/model.keras
+      hash: md5
+      md5: 3a89ea13733c57a33d9b7f063131d790
+      size: 49737

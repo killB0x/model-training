@@ -1,1 +1,4 @@
 .idea
+
+# all content of data subfolders
+data/**/*
