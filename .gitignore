@@ -1,5 +1,4 @@
 .idea
-Pipfile.lock
 
 # all content of data subfolders
 data/**/*

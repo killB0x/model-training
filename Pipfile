@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pylint = "==2.13"
+dslinter = "1.1.0"
 numpy = "==1.26.0"
 pandas = "==2.2.2"
 matplotlib = "==3.8.0"
