@@ -2,3 +2,5 @@
 
 # all content of data subfolders
 data/**/*
+!data/**/*.dvc
+!data/*.dvc
