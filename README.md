@@ -22,4 +22,14 @@ pipenv install
 TODO: Instructions on how to use the project
 
 
+## Code Quality Reports
 
+We use [dslinter](https://github.com/SERG-Delft/dslinter) to detect code smells specific to Machine Learning.
+The linter is configured using the [.pylintrc configuration file provided by dslinter](https://github.com/Hynn01/dslinter/blob/main/docs/pylint-configuration-examples/pylintrc-with-only-dslinter-settings/.pylintrc).
+
+You can run the linter as follows:
+```bash
+pylint <path_to_sources>
+```
+
+This will create a code quality report in the `reports` folder
