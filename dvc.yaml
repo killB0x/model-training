@@ -35,9 +35,9 @@ stages:
     - models/model.keras
 
   predict:
-    cmd: python .\src\models\predict.py
+    cmd: python ./src/models/predict.py
     metrics:
-    - .\data\prediction\prediction.json
+    - ./data/prediction/prediction.json
     deps:
-    - .\data\processed\x_test.pkl
-    - .\models\model.keras
+    - ./data/processed/x_test.pkl
+    - ./models/model.keras

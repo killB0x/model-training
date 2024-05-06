@@ -2,3 +2,6 @@
 
 # all content of data subfolders
 data/**/*
+!data/external/
+data/external/**/*
+!data/external/*.dvc
