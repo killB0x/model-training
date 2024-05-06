@@ -18,8 +18,12 @@ To install and set up the environment, follow these steps:
 pipenv install
 ```
 3. Run the project:
+```dvc pull```
+```dvc repro```
+4. Check experiments:
+```dvc exp show```
 
-TODO: Instructions on how to use the project
+To run custom experiment, update ```params.yml``` file and run  ```dvc repro``` and then ```dvc exp show```.
 
 
 ## Code Quality Reports
