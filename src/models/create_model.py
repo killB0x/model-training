@@ -13,6 +13,18 @@ def create_model():
 
     with open('./params.yml', encoding='utf-8') as f:
         params = yaml.load(f, yaml.Loader)
+    
+    with open('./data/processed/x_train.pkl', 'rb') as f:
+        x_train = pickle.load(f)
+    
+    with open('./data/processed/y_train.pkl', 'rb') as f:
+        y_train = pickle.load(f)
+    
+    with open('./data/processed/x_val.pkl', 'rb') as f:
+        x_val = pickle.load(f)
+        
+    with open('./data/processed/y_val.pkl', 'rb') as f:
+        y_val = pickle.load(f)
 
     model = Sequential()
     voc_size = len(char_index.keys())
@@ -47,6 +59,15 @@ def create_model():
     model.add(Flatten())
 
     model.add(Dense(len(params['categories'])-1, activation='sigmoid'))
+    model.compile(loss=params['loss_function'], optimizer=params['optimizer'], metrics=['accuracy'])
+
+
+    hist = model.fit(x_train, y_train,
+                    batch_size=params['batch_train'],
+                    epochs=params['epoch'],
+                    shuffle=True,
+                    validation_data=(x_val, y_val)
+                    )
 
     model.save('./models/model.keras')
 
