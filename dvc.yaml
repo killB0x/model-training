@@ -33,3 +33,11 @@ stages:
     - data/processed/char_index.pkl
     outs:
     - models/model.keras
+
+  predict:
+    cmd: python .\src\models\predict.py
+    metrics:
+    - .\data\prediction\prediction.json
+    deps:
+    - .\data\processed\x_test.pkl
+    - .\models\model.keras
