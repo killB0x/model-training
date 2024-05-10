@@ -99,18 +99,18 @@ stages:
       md5: da812e96d108c25536243d253bddf567
       size: 5472087
   predict:
-    cmd: python .\src\models\predict.py
+    cmd: python ./src/models/predict.py
     deps:
-    - path: .\data\processed\x_test.pkl
+    - path: ./data/processed/x_test.pkl
       hash: md5
       md5: 7f5fbed778d9ef617aa8deb518b714fc
       size: 291358564
-    - path: .\models\model.keras
+    - path: ./models/model.keras
       hash: md5
       md5: da812e96d108c25536243d253bddf567
       size: 5472087
     outs:
-    - path: .\data\prediction\prediction.json
+    - path: ./data/prediction/prediction.json
       hash: md5
-      md5: 29f6aeffc960b3cf5a3e38d6f9b4666f
-      size: 389
+      md5: 463deb54718ea731c7723df963124d8c
+      size: 371
