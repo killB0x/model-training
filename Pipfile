@@ -15,6 +15,7 @@ keras = "==3.2.1"
 pyyaml = "==6.0.1"
 dvc = {extras = ["gdrive"], version = "==3.50.1"}
 keras-preprocessing = "==1.1.2"
+dvclive = "*"
 
 [dev-packages]
 ipykernel = "*"

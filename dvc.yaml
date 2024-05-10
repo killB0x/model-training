@@ -41,10 +41,3 @@ stages:
     deps:
     - ./data/processed/x_test.pkl
     - ./models/model.keras
-
-artifacts:
-  phishing-detection:
-    path: models/model.keras
-    type: model
-    desc:
-      This is a CNN model that detects phising in urls.
