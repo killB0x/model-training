@@ -96,7 +96,7 @@ stages:
     outs:
     - path: models/model.keras
       hash: md5
-      md5: da812e96d108c25536243d253bddf567
+      md5: 60dd14215201ac924d1f5a926c8e88a9
       size: 5472087
   predict:
     cmd: python ./src/models/predict.py
@@ -107,7 +107,7 @@ stages:
       size: 291358564
     - path: ./models/model.keras
       hash: md5
-      md5: da812e96d108c25536243d253bddf567
+      md5: 60dd14215201ac924d1f5a926c8e88a9
       size: 5472087
     outs:
     - path: ./data/prediction/prediction.json

@@ -41,3 +41,7 @@ stages:
     deps:
     - ./data/processed/x_test.pkl
     - ./models/model.keras
+artifacts:
+  phising-detection:
+    path: models/model.keras
+    type: model
