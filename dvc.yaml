@@ -42,6 +42,7 @@ stages:
     - ./data/processed/x_test.pkl
     - ./models/model.keras
 artifacts:
-  phising-detection:
+  phishing-detection:
     path: models/model.keras
     type: model
+    description: This is a CNN model that detects phishing in urls.
