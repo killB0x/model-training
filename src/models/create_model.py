@@ -76,7 +76,7 @@ def create_model():
         live.log_artifact(
             str("./models/model.keras"),
             type="model",
-            name="phising-detection"
+            name="phishing-detection"
         )
 
 if __name__ == "__main__":

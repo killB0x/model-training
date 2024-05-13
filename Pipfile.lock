@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ff9ce43163317a10e307f136d45c22a6549033c51c524c204c76a38c6eca7984"
+            "sha256": "bdd9fdbd01647f21a235c7f22312e0127a7531354dc8ab08a2d12e8222c1e646"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -1284,6 +1284,10 @@
             "markers": "python_version >= '3.8'",
             "version": "==1.10.0"
         },
+        "lib-ml": {
+            "git": "git+https://github.com/remla24-team12/lib-ml.git",
+            "ref": "c00074feb05acbc71cbf3d98f081aed025ec5933"
+        },
         "libclang": {
             "hashes": [
                 "sha256:3f0e1f49f04d3cd198985fea0511576b0aee16f9ff0e0f0cad7f9c57ec3c20e8",
@@ -2412,11 +2416,11 @@
         },
         "scmrepo": {
             "hashes": [
-                "sha256:2933d0b15b1b409c01e7eb2aea79b476215276d26e1eda4b4c9d3fe374047022",
-                "sha256:a817334bf005275e7f0f98d768ce21bb5cbfc05676a0d6081372eb927e7c737b"
+                "sha256:11242e4396b899b790bb146a92ad44925560330b2413014c5442f1b00bdb31ee",
+                "sha256:9eb592b4aadd51360f1bbe316d055b04278ca909f162023078fe504961b1a1d8"
             ],
             "markers": "python_version >= '3.9'",
-            "version": "==3.3.2"
+            "version": "==3.3.3"
         },
         "semver": {
             "hashes": [
