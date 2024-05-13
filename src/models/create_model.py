@@ -6,6 +6,7 @@ import pickle
 from keras.models import Sequential
 from keras.layers import Embedding, Conv1D, MaxPooling1D, Flatten, Dense, Dropout
 import yaml
+from dvclive import Live
 
 def create_model():
     with open('./data/processed/char_index.pkl', 'rb') as f:
@@ -70,6 +71,13 @@ def create_model():
                     )
 
     model.save('./models/model.keras')
+
+    with Live() as live:
+        live.log_artifact(
+            str("./models/model.keras"),
+            type="model",
+            name="phishing-detection"
+        )
 
 if __name__ == "__main__":
     create_model()

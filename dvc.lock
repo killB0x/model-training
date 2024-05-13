@@ -18,31 +18,31 @@ stages:
     outs:
     - path: data/raw/test.csv
       hash: md5
-      md5: 5f018844567fe9ab4547ee91d8603429
-      size: 33093163
+      md5: 33e3e713088fc0fe1c94ccfaa491757a
+      size: 32728964
     - path: data/raw/train.csv
       hash: md5
-      md5: ad11e08546ac0f3c8de4f72e8174e90a
-      size: 94979141
+      md5: 23acfaf5713f02a1414c43149affe8c0
+      size: 93933366
     - path: data/raw/val.csv
       hash: md5
-      md5: 926acde337b8d43b2cf2060704d4edf3
-      size: 46779227
+      md5: 70d21cbf1b2742a34e83a16967ca5c1d
+      size: 46264147
   preprocess:
     cmd: python src/data/preprocess_data.py
     deps:
     - path: data/raw/test.csv
       hash: md5
-      md5: 5f018844567fe9ab4547ee91d8603429
-      size: 33093163
+      md5: 33e3e713088fc0fe1c94ccfaa491757a
+      size: 32728964
     - path: data/raw/train.csv
       hash: md5
-      md5: ad11e08546ac0f3c8de4f72e8174e90a
-      size: 94979141
+      md5: 23acfaf5713f02a1414c43149affe8c0
+      size: 93933366
     - path: data/raw/val.csv
       hash: md5
-      md5: 926acde337b8d43b2cf2060704d4edf3
-      size: 46779227
+      md5: 70d21cbf1b2742a34e83a16967ca5c1d
+      size: 46264147
     outs:
     - path: data/processed/char_index.pkl
       hash: md5
@@ -62,16 +62,16 @@ stages:
       size: 412063364
     - path: data/processed/y_test.pkl
       hash: md5
-      md5: c7556cbce9bb0103e4a3172acb76d80e
-      size: 1456954
+      md5: 739720df4bd3bd1db77822574ed96f65
+      size: 2913746
     - path: data/processed/y_train.pkl
       hash: md5
-      md5: 46f113e6a40a467378c314b3610b456a
-      size: 4183258
+      md5: 3fe5b85a1a8d40d88103244ff8c6a9dd
+      size: 8366354
     - path: data/processed/y_val.pkl
       hash: md5
-      md5: 49354a62c9b72a64ea6ad960b3074dd9
-      size: 2060478
+      md5: 0f6c9e06d11297f484b4baa67ef148d1
+      size: 4120794
   create_model:
     cmd: python src/models/create_model.py
     deps:
@@ -96,21 +96,21 @@ stages:
     outs:
     - path: models/model.keras
       hash: md5
-      md5: da812e96d108c25536243d253bddf567
+      md5: 84afb22a0c00ded1feeed4e8febaa062
       size: 5472087
   predict:
-    cmd: python .\src\models\predict.py
+    cmd: python ./src/models/predict.py
     deps:
-    - path: .\data\processed\x_test.pkl
+    - path: ./data/processed/x_test.pkl
       hash: md5
       md5: 7f5fbed778d9ef617aa8deb518b714fc
       size: 291358564
-    - path: .\models\model.keras
+    - path: ./models/model.keras
       hash: md5
-      md5: da812e96d108c25536243d253bddf567
+      md5: 84afb22a0c00ded1feeed4e8febaa062
       size: 5472087
     outs:
-    - path: .\data\prediction\prediction.json
+    - path: ./data/prediction/prediction.json
       hash: md5
-      md5: 29f6aeffc960b3cf5a3e38d6f9b4666f
-      size: 389
+      md5: 278afb3f54d447376e4a6931bc00f42c
+      size: 371

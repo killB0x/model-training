@@ -18,6 +18,7 @@ stages:
     - data/raw/val.csv
     outs:
     - data/processed/char_index.pkl
+    - data/processed/tokenizer.pkl
     - data/processed/x_test.pkl
     - data/processed/x_train.pkl
     - data/processed/x_val.pkl
@@ -41,3 +42,13 @@ stages:
     deps:
     - ./data/processed/x_test.pkl
     - ./models/model.keras
+artifacts:
+  phishing-detection-tokenizer:
+    path: data/processed/tokenizer.pkl
+    type: tokenizer
+  phishing-detection:
+    path: models/model.keras
+    type: model
+  tokenizer:
+    path: data/processed/tokenizer.pkl
+    type: model

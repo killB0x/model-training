@@ -3,38 +3,24 @@ Tokenizing the dataset.
 """
 
 import pickle
-
-from keras_preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
-from sklearn.preprocessing import LabelEncoder
 import pandas as pd
+from lib_ml import preprocessing
+
 
 def preprocess_data():
     raw_train = pd.read_csv('./data/raw/train.csv', dtype='string')
-    raw_x_train = raw_train['url'].to_list()
-    raw_y_train = raw_train['label']
-
     raw_val = pd.read_csv('./data/raw/val.csv', dtype='string')
-    raw_x_val = raw_val['url'].to_list()
-    raw_y_val = raw_val['label']
-
     raw_test = pd.read_csv('./data/raw/test.csv', dtype='string')
-    raw_x_test = raw_test['url'].to_list()
-    raw_y_test = raw_test['label']
 
-    tokenizer = Tokenizer(lower=True, char_level=True, oov_token='-n-')
-    tokenizer.fit_on_texts(raw_x_train + raw_x_val + raw_x_test)
-    char_index = tokenizer.word_index
-    sequence_length=200
-    x_train = pad_sequences(tokenizer.texts_to_sequences(raw_x_train), maxlen=sequence_length)
-    x_val = pad_sequences(tokenizer.texts_to_sequences(raw_x_val), maxlen=sequence_length)
-    x_test = pad_sequences(tokenizer.texts_to_sequences(raw_x_test), maxlen=sequence_length)
-
-    encoder = LabelEncoder()
-
-    y_train = encoder.fit_transform(raw_y_train)
-    y_val = encoder.transform(raw_y_val)
-    y_test = encoder.transform(raw_y_test)
+    (
+        char_index,
+        x_train,
+        x_val,
+        x_test,
+        y_train,
+        y_val,
+        y_test
+    ) = preprocessing.process_data(raw_train, raw_val, raw_test)
 
     with open('./data/processed/char_index.pkl', 'wb') as f:
         pickle.dump(char_index, f)
