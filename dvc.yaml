@@ -49,3 +49,6 @@ artifacts:
   phishing-detection:
     path: models/model.keras
     type: model
+  tokenizer:
+    path: data/processed/tokenizer.pkl
+    type: model
