@@ -17,5 +17,6 @@ jobs:
           pip install pylint
       - name: Analyze code with pylint
         run: |
+          dir ./src/data
           pylint ./src/data
           pylint ./src/models
