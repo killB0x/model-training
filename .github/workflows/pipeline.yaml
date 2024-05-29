@@ -19,7 +19,9 @@ jobs:
           poetry install
       
       - name: Run tests
-        run: poetry run pytest
+        run: |
+        dir data/raw
+        poetry run pytest
       
       - name: Run pylint on dslinter
         run: poetry run pylint dslinter
