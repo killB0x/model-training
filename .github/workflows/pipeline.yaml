@@ -1,0 +1,40 @@
+name: Continuous Training Pipeline
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo onto runner
+        uses: actions/checkout@v4
+      
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          curl -sSL https://install.python-poetry.org | python3 -
+          poetry install
+
+      - name: Install DVC
+        run: |
+          poetry run pip install dvc dvc-gdrive
+
+      - name: Configure DVC
+        run: |
+          mkdir -p .dvc/tmp
+          echo '${{ secrets.GDRIVE_CREDENTIALS }}' > .dvc/tmp/gdrive-user-credentials.json
+          poetry run dvc remote modify gdrive gdrive_user_credentials_file .dvc/tmp/gdrive-user-credentials.json
+          poetry run dvc pull
+      
+      - name: Run tests
+        run: |
+          poetry run pytest
+      
+      - name: Run pylint on dslinter
+        run: poetry run pylint dslinter
