@@ -17,4 +17,4 @@ jobs:
           pip install pylint
       - name: Analyze code with pylint
         run: |
-          pylint src
+          pylint .
