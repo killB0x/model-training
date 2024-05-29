@@ -42,3 +42,13 @@ pylint <path_to_sources>
 ```
 
 This will create a code quality report in the `reports` folder
+
+
+## Running the tests
+
+To run the tests simply run:
+```bash
+pytest
+```
+This will execute all the tests defined in the 'tests' folder
+
