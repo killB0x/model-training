@@ -13,9 +13,14 @@ Before you begin, ensure you have met the following requirements:
 To install and set up the environment, follow these steps:
 
 1. Clone the repository:
-2. Install the required libraries using pipenv:
+2. Make sure you have Poetry installed:
 ```bash
-pipenv install
+pip install poetry
+```
+3. Install the required libraries using Poetry:
+```bash
+poetry install
+poetry shell
 ```
 3. Run the project:
 ```dvc pull```
