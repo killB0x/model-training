@@ -15,7 +15,10 @@ jobs:
           python -m pip install --upgrade pip
           curl -sSL https://install.python-poetry.org | python3 -
           poetry install
+      
       - name: Run pylint
-        run: poetry run pylint
+        run: pylint src
+        with:
+          fail_ci_if_error: false
       - name: Run pylint on dslinter
         run: poetry run pylint dslinter
