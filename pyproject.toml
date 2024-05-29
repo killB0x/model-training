@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "model-training"
+version = "0.1.0"
+description = ""
+authors = [
+    "Nicolae Rusnac <test@test.com>", 
+    "Reinout Vos <r.h.a.vos@student.tudelft.nl>",
+    "Kris van Melis <test@test.com>",
+    "Bram de Vries <test@test.com>",
+]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "~3.11"
+numpy = "^1.26.0"
+pandas = "^2.2.2"
+matplotlib = "^3.8.0"
+scikit-learn = "^1.4.2"
+tensorflow = {version = ">2.16" }
+keras = "^3.2.1"
+keras-preprocessing = "^1.1.2"
+pylint = "^2.13"
+dslinter = "^1.1.0"
+pytest = "^8.2.1"
+pyyaml = "^6.0.1"
+dvc = "^3.51.0"
+dvc-gdrive = "^3.0.1"
+dvclive = "*"
+lib-ml-remla-12 = "^0.1.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
