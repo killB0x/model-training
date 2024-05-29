@@ -20,8 +20,8 @@ jobs:
       
       - name: Run tests
         run: |
-        dir data/raw
-        poetry run pytest
+          dir data/raw
+          poetry run pytest
       
       - name: Run pylint on dslinter
         run: poetry run pylint dslinter
