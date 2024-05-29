@@ -18,6 +18,7 @@ jobs:
       - name: Debug
         run: |
           dir
+          git ls-files
       - name: Analyze code with pylint
         run: |
-          pylint .
+          pylint ./src
