@@ -3,10 +3,10 @@ name = "model-training"
 version = "0.1.0"
 description = ""
 authors = [
-    "Nicolae Rusnac <test@test.com>", 
+    "Nicolae Rusnac <n.rusnac@student.tudelft.nl>", 
     "Reinout Vos <r.h.a.vos@student.tudelft.nl>",
-    "Kris van Melis <test@test.com>",
-    "Bram de Vries <test@test.com>",
+    "Kris van Melis <k.p.vanMelis@student.tudelft.nl>",
+    "Bram de Vries <acvries@tudelft.nl>",
 ]
 readme = "README.md"
 
@@ -26,7 +26,7 @@ pytest = "^8.2.1"
 pyyaml = "^6.0.1"
 dvc = "^3.51.0"
 dvc-gdrive = "^3.0.1"
-dvclive = "*"
+dvclive = "^3.46.0"
 lib-ml-remla-12 = "^0.1.10"
 
 
