@@ -5,10 +5,15 @@ Model definition.
 import pickle
 from keras.models import Sequential
 from keras.layers import Embedding, Conv1D, MaxPooling1D, Flatten, Dense, Dropout
+from keras import utils
 import yaml
 from dvclive import Live
 
-def create_model():
+SEED = 42
+
+def create_model(seed = SEED):
+    utils.set_random_seed = seed
+
     with open('./data/processed/char_index.pkl', 'rb') as f:
         char_index = pickle.load(f)
 
@@ -63,12 +68,17 @@ def create_model():
     model.compile(loss=params['loss_function'], optimizer=params['optimizer'], metrics=['accuracy'])
 
 
-    hist = model.fit(x_train, y_train,
+    history = model.fit(x_train, y_train,
                     batch_size=params['batch_train'],
                     epochs=params['epoch'],
                     shuffle=True,
                     validation_data=(x_val, y_val)
                     )
+
+    return model
+
+if __name__ == "__main__":
+    model = create_model()
 
     model.save('./models/model.keras')
 
@@ -78,6 +88,3 @@ def create_model():
             type="model",
             name="phishing-detection"
         )
-
-if __name__ == "__main__":
-    create_model()

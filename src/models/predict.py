@@ -8,10 +8,18 @@ import json
 import numpy as np
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
-
-def predict():
-    model = load_model('./models/model.keras')
+def accuracy(model):
+    with open('./data/processed/x_test.pkl', 'rb') as f:
+        x_test = pickle.load(f)
     
+    with open('./data/processed/y_test.pkl', 'rb') as f:
+        y_test = pickle.load(f)
+
+    _, accuracy = model.evaluate(x_test, y_test)
+
+    return accuracy
+
+def predict(model):
     with open('./data/processed/x_test.pkl', 'rb') as f:
         x_test = pickle.load(f)
     
@@ -40,8 +48,14 @@ def predict():
         "accuracy": accuracy
     }
 
-    with open('./data/prediction/prediction.json', 'w') as f:
-        json.dump(metrics, f, indent=4)
+    return metrics
+
+    
     
 if __name__ == "__main__":
-    predict()
+    model = load_model('./models/model.keras')
+
+    metrics = predict(model)
+
+    with open('./data/prediction/prediction.json', 'w') as f:
+        json.dump(metrics, f, indent=4)

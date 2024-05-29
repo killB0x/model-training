@@ -5,3 +5,5 @@ data/**/*
 !data/external/
 data/external/**/*
 !data/external/*.dvc
+
+**/__pycache__
