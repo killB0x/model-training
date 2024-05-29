@@ -17,8 +17,7 @@ jobs:
           python -m pip install --upgrade pip
           curl -sSL https://install.python-poetry.org | python3 -
           poetry install
-          pip install dvc
-          pip install dvc-gdrive
+          poetry shell
       
       - name: Run tests
         run: |
