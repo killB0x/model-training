@@ -11,11 +11,9 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install dependencies
-        # potential TODO: use Poetry
         run: |
           python -m pip install --upgrade pip
-          pip install pylint
-          # pip install dslinter
-      - name: Analyze code with pylint
-        run: |
-          pylint ./src
+          curl -sSL https://install.python-poetry.org | python3 -
+          poetry install
+      - name: Run pylint on dslinter
+        run: poetry run pylint dslinter --fail-under=8
