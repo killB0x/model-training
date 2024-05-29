@@ -1,4 +1,4 @@
-name: Code Quality Checks
+name: Continuous Training Pipeline
 on: [push]
 jobs:
   build:
@@ -6,14 +6,20 @@ jobs:
     steps:
       - name: Check out repo onto runner
         uses: actions/checkout@v4
+      
       - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
           python-version: '3.11'
+      
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           curl -sSL https://install.python-poetry.org | python3 -
           poetry install
+      
       - name: Run pylint on dslinter
         run: poetry run pylint dslinter
+
+      - name: Run tests
+        run: poetry run pytest
