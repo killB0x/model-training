@@ -20,7 +20,7 @@ jobs:
       
       - name: Run tests
         run: |
-          dir data/raw
+          dvc pull
           poetry run pytest
       
       - name: Run pylint on dslinter
