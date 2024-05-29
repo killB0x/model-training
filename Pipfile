@@ -17,6 +17,7 @@ dvc = {extras = ["gdrive"], version = "==3.50.1"}
 keras-preprocessing = "==1.1.2"
 dvclive = "*"
 lib-ml-remla-12 = "==0.1.10"
+pytest = "==8.2.1"
 
 [dev-packages]
 ipykernel = "*"
