@@ -18,8 +18,8 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3 -
           poetry install
       
-      - name: Run pylint on dslinter
-        run: poetry run pylint dslinter
-
       - name: Run tests
         run: poetry run pytest
+      
+      - name: Run pylint on dslinter
+        run: poetry run pylint dslinter
