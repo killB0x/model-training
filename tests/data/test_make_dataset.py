@@ -1,5 +1,6 @@
 import os
 import pytest
+import pandas as pd
 
 DATA_FOLDER = "./data"
 
@@ -10,3 +11,13 @@ def test_txt_files_exist(split):
     """
     file_path = os.path.join(DATA_FOLDER, "external", f"{split}.txt")
     assert os.path.exists(file_path), f"File not found: {file_path}"
+
+@pytest.fixture
+def x_df(split):
+    x_df = pd.read_csv(os.path.join(DATA_FOLDER, 'raw', f'{split}.csv'), dtype='string')
+    yield x_df
+
+@pytest.mark.parametrize("split", ['train', 'test', 'val'])
+def test_no_duplicates(split, x_df):
+    assert len(x_df['url'].unique()) == x_df.shape[0]
+    assert x_df.groupby(['label','url']).size().max()==1

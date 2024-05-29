@@ -1,5 +1,6 @@
 import os
 import pytest
+import pickle
 
 DATA_FOLDER = "./data"
 
@@ -10,3 +11,6 @@ def test_csv_files_exist(split):
     """
     file_path = os.path.join(DATA_FOLDER, "raw", f"{split}.csv")
     assert os.path.exists(file_path), f"File not found: {file_path}"
+
+
+    
