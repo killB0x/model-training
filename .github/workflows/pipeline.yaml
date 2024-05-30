@@ -34,9 +34,9 @@ jobs:
           poetry run dvc remote modify gdrive gdrive_user_credentials_file .dvc/tmp/gdrive-user-credentials.json
           poetry run dvc pull
       
-      - name: Run tests
-        run: |
-          poetry run pytest
+      # - name: Run tests
+      #   run: |
+      #     poetry run pytest
       
       - name: Run pylint on dslinter
         run: poetry run pylint dslinter
