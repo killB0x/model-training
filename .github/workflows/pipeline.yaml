@@ -23,20 +23,20 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3 -
           poetry install
 
-      # - name: Install DVC
-      #   run: |
-      #     poetry run pip install dvc dvc-gdrive
+      - name: Install DVC
+        run: |
+          poetry run pip install dvc dvc-gdrive
 
-      # - name: Configure DVC
-      #   run: |
-      #     mkdir -p .dvc/tmp
-      #     echo '${{ secrets.GDRIVE_CREDENTIALS }}' > .dvc/tmp/gdrive-user-credentials.json
-      #     poetry run dvc remote modify gdrive gdrive_user_credentials_file .dvc/tmp/gdrive-user-credentials.json
-      #     poetry run dvc pull
+      - name: Configure DVC
+        run: |
+          mkdir -p .dvc/tmp
+          echo '${{ secrets.GDRIVE_CREDENTIALS }}' > .dvc/tmp/gdrive-user-credentials.json
+          poetry run dvc remote modify gdrive gdrive_user_credentials_file .dvc/tmp/gdrive-user-credentials.json
+          poetry run dvc pull
       
-      # - name: Run tests
-      #   run: |
-      #     poetry run pytest
+      - name: Run tests
+        run: |
+          poetry run pytest
       
-      - name: Run pylint on dslinter
-        run: poetry run pylint dslinter
+      - name: Run pylint with dslinter
+        run: poetry run pylint src

@@ -31,14 +31,12 @@ poetry shell
 To run custom experiment, update ```params.yml``` file and run  ```dvc repro``` and then ```dvc exp show```.
 
 
-## Code Quality Reports
+## Code Quality
 
 We use [dslinter](https://github.com/SERG-Delft/dslinter) to detect code smells specific to Machine Learning.
 The linter is configured using the [.pylintrc configuration file provided by dslinter](https://github.com/Hynn01/dslinter/blob/main/docs/pylint-configuration-examples/pylintrc-with-only-dslinter-settings/.pylintrc).
 
-You can run the linter as follows:
+You can run the Pylint linter (which is configured using dslinter) as follows:
 ```bash
-pylint <path_to_sources>
+poetry run pylint src
 ```
-
-This will create a code quality report in the `reports` folder

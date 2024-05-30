@@ -12,25 +12,28 @@ from dvclive import Live
 SEED = 42
 
 def create_model(seed = SEED):
+    """
+    Creates and trains a Keras CNN model
+    """
     utils.set_random_seed = seed
 
-    with open('./data/processed/char_index.pkl', 'rb') as f:
-        char_index = pickle.load(f)
+    with open('./data/processed/char_index.pkl', 'rb') as file:
+        char_index = pickle.load(file)
 
-    with open('./params.yml', encoding='utf-8') as f:
-        params = yaml.load(f, yaml.Loader)
-    
-    with open('./data/processed/x_train.pkl', 'rb') as f:
-        x_train = pickle.load(f)
-    
-    with open('./data/processed/y_train.pkl', 'rb') as f:
-        y_train = pickle.load(f)
-    
-    with open('./data/processed/x_val.pkl', 'rb') as f:
-        x_val = pickle.load(f)
-        
-    with open('./data/processed/y_val.pkl', 'rb') as f:
-        y_val = pickle.load(f)
+    with open('./params.yml', encoding='utf-8') as file:
+        params = yaml.load(file, yaml.Loader)
+
+    with open('./data/processed/x_train.pkl', 'rb') as file:
+        x_train = pickle.load(file)
+
+    with open('./data/processed/y_train.pkl', 'rb') as file:
+        y_train = pickle.load(file)
+
+    with open('./data/processed/x_val.pkl', 'rb') as file:
+        x_val = pickle.load(file)
+
+    with open('./data/processed/y_val.pkl', 'rb') as file:
+        y_val = pickle.load(file)
 
     model = Sequential()
     voc_size = len(char_index.keys())
@@ -67,20 +70,21 @@ def create_model(seed = SEED):
     model.add(Dense(len(params['categories'])-1, activation='sigmoid'))
     model.compile(loss=params['loss_function'], optimizer=params['optimizer'], metrics=['accuracy'])
 
-
-    history = model.fit(x_train, y_train,
-                    batch_size=params['batch_train'],
-                    epochs=params['epoch'],
-                    shuffle=True,
-                    validation_data=(x_val, y_val)
-                    )
+    model.fit(
+        x_train,
+        y_train,
+        batch_size=params['batch_train'],
+        epochs=params['epoch'],
+        shuffle=True,
+        validation_data=(x_val, y_val)
+    )
 
     return model
 
 if __name__ == "__main__":
-    model = create_model()
+    trained_model = create_model()
 
-    model.save('./models/model.keras')
+    trained_model.save('./models/model.keras')
 
     with Live() as live:
         live.log_artifact(
