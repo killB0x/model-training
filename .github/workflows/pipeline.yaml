@@ -32,8 +32,7 @@ jobs:
           mkdir -p .dvc/tmp
           echo '${{ secrets.GDRIVE_CREDENTIALS }}' > .dvc/tmp/gdrive-user-credentials.json
           poetry run dvc remote modify gdrive gdrive_user_credentials_file .dvc/tmp/gdrive-user-credentials.json
-          poetry run dvc doctor
-          poetry run dvc pull -v --allow-missing
+          poetry run dvc pull --with-deps -r gdrive
 
       - name: Run tests
         run: |
