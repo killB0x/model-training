@@ -28,6 +28,7 @@ dvc = "^3.51.0"
 dvc-gdrive = "^3.0.1"
 dvclive = "^3.46.0"
 lib-ml-remla-12 = "^0.1.10"
+pytest-benchmark = "^4.0.0"
 
 
 [build-system]
