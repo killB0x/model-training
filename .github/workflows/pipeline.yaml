@@ -61,5 +61,5 @@ jobs:
           path: ./cache
           key: ${{ runner.os }}-benchmark
 
-      - name: Run pylint on dslinter
-        run: poetry run pylint dslinter
+      - name: Run pylint with dslinter
+        run: poetry run pylint src
