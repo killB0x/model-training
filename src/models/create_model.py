@@ -6,12 +6,13 @@ import pickle
 from keras.models import Sequential
 from keras.layers import Embedding, Conv1D, MaxPooling1D, Flatten, Dense, Dropout
 from keras import utils
+from sklearn.model_selection import train_test_split
 import yaml
 from dvclive import Live
 
 SEED = 42
 
-def create_model(seed = SEED):
+def create_model(seed = SEED, sample_percentage = 1):
     """
     Creates and trains a Keras CNN model
     """
@@ -70,13 +71,16 @@ def create_model(seed = SEED):
     model.add(Dense(len(params['categories'])-1, activation='sigmoid'))
     model.compile(loss=params['loss_function'], optimizer=params['optimizer'], metrics=['accuracy'])
 
+    x_train_sampled, _, y_train_sampled, _ = train_test_split(x_train, y_train, test_size=1 - sample_percentage, stratify=y_train, random_state=SEED)
+    x_val_sampled, _, y_val_sampled, _ = train_test_split(x_val, y_val, test_size=1 - sample_percentage, stratify=y_val, random_state=SEED)
+
     model.fit(
-        x_train,
-        y_train,
+        x_train_sampled,
+        y_train_sampled,
         batch_size=params['batch_train'],
         epochs=params['epoch'],
         shuffle=True,
-        validation_data=(x_val, y_val)
+        validation_data=(x_val_sampled, y_val_sampled)
     )
 
     return model
