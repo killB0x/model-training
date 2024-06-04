@@ -7,8 +7,9 @@ import json
 import numpy as np
 from keras.models import load_model
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+from sklearn.model_selection import train_test_split
 
-def accuracy(model):
+def accuracy(model, seed = 42, sample_percentage = 1):
     """
     Compute accuracy for a given model.
     """
@@ -18,7 +19,9 @@ def accuracy(model):
     with open('./data/processed/y_test.pkl', 'rb') as file:
         y_test = pickle.load(file)
 
-    _, model_accuracy = model.evaluate(x_test, y_test)
+    x_test_sampled, _, y_test_sampled, _ = train_test_split(x_test, y_test, test_size=1 - sample_percentage, stratify=y_test, random_state=seed)
+
+    _, model_accuracy = model.evaluate(x_test_sampled, y_test_sampled)
 
     return model_accuracy
 

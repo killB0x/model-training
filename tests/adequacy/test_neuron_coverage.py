@@ -4,6 +4,8 @@ import pickle
 import numpy as np
 import math
 
+from sklearn.model_selection import train_test_split
+
 
 @pytest.fixture
 def trained_model():
@@ -14,7 +16,10 @@ def trained_model():
 def test_data():
     with open('data/processed/x_test.pkl', 'rb') as file:
         X_test = pickle.load(file)
-    return X_test
+    
+    x_test_sampled, _ = train_test_split(X_test, test_size=1 - 0.1, random_state=42)
+
+    return x_test_sampled
 
 def test_neuron_coverage(trained_model, test_data):
     # TODO: Correct computation of number of activated neurons

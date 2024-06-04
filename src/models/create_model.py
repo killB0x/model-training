@@ -71,8 +71,16 @@ def create_model(seed = SEED, sample_percentage = 1):
     model.add(Dense(len(params['categories'])-1, activation='sigmoid'))
     model.compile(loss=params['loss_function'], optimizer=params['optimizer'], metrics=['accuracy'])
 
-    x_train_sampled, _, y_train_sampled, _ = train_test_split(x_train, y_train, test_size=1 - sample_percentage, stratify=y_train, random_state=SEED)
-    x_val_sampled, _, y_val_sampled, _ = train_test_split(x_val, y_val, test_size=1 - sample_percentage, stratify=y_val, random_state=SEED)
+    x_train_sampled, _, y_train_sampled, _ = train_test_split(
+        x_train, y_train, 
+        test_size=1 - sample_percentage, 
+        stratify=y_train, random_state=seed
+    )
+    x_val_sampled, _, y_val_sampled, _ = train_test_split(
+        x_val, y_val, 
+        test_size=1 - sample_percentage, 
+        stratify=y_val, random_state=seed
+    )
 
     model.fit(
         x_train_sampled,
