@@ -19,7 +19,9 @@ def accuracy(model, seed = 42, sample_percentage = 1.0):
     with open('./data/processed/y_test.pkl', 'rb') as file:
         y_test = pickle.load(file)
 
-    x_test_sampled, _, y_test_sampled, _ = train_test_split(x_test, y_test, test_size=1 - sample_percentage, stratify=y_test, random_state=seed)
+    x_test_sampled, _, y_test_sampled, _ = train_test_split(
+        x_test, y_test, test_size=1 - sample_percentage, stratify=y_test, random_state=seed
+    )
 
     _, model_accuracy = model.evaluate(x_test_sampled, y_test_sampled)
 
