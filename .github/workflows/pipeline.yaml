@@ -1,6 +1,7 @@
 name: Continuous Training Pipeline
 on:
   pull_request:
+  push:
     branches:
       - main
 
@@ -35,10 +36,19 @@ jobs:
 
       - name: Run tests
         run: |
-          poetry run pytest --ignore=benchmark
+          if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            poetry run pytest --ignore=benchmark --all
+          else
+            poetry run pytest --ignore=benchmark
+          fi
 
       - name: Run benchmark
-        run: poetry run pytest tests/benchmark/bench.py --benchmark-json output.json
+        run: |
+          if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            poetry run pytest tests/benchmark/bench.py --benchmark-json output.json --all
+          else
+            poetry run pytest tests/benchmark/bench.py --benchmark-json output.json
+          fi
 
       - name: Download previous benchmark data
         uses: actions/cache@v4
@@ -53,6 +63,9 @@ jobs:
           output-file-path: output.json
           external-data-json-path: ./cache/benchmark-data.json
           fail-on-alert: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          comment-on-alert: true
+          summary-always: true
 
       - name: Upload new benchmark data
         uses: actions/cache@v1

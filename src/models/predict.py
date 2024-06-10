@@ -9,7 +9,7 @@ from keras.models import load_model
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.model_selection import train_test_split
 
-def accuracy(model, seed = 42, sample_percentage = 1):
+def accuracy(model, seed = 42, sample_percentage = 1.0):
     """
     Compute accuracy for a given model.
     """
