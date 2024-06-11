@@ -13,11 +13,14 @@ def trained_model():
   yield trained_model
 
 @pytest.fixture
-def test_data():
+def test_data(sample_percentage = 1.0):
     with open('data/processed/x_test.pkl', 'rb') as file:
-        X_test = pickle.load(file)
+        x_test = pickle.load(file)
     
-    x_test_sampled, _ = train_test_split(X_test, test_size=1 - 0.1, random_state=42)
+    if (sample_percentage < 1):
+        x_test_sampled, _ = train_test_split(x_test, test_size=1 - sample_percentage, random_state=42)
+    else:
+        x_test_sampled = x_test
 
     return x_test_sampled
 
