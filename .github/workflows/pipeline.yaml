@@ -37,9 +37,9 @@ jobs:
       - name: Run tests
         run: |
           if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            poetry run pytest --ignore=benchmark --full
+            poetry run pytest tests/ --ignore=benchmark --full
           else
-            poetry run pytest --ignore=benchmark
+            poetry run pytest tests/ --ignore=benchmark
           fi
 
       - name: Run benchmark
