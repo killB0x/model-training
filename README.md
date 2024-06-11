@@ -1,6 +1,6 @@
-# URL Phising Detection CNN
+# URL Phishing Detection CNN
 
-This project is a URL Phising Detection using Convolutional Neural Network (CNN) with Python.
+This project is a URL Phishing Detection using a Convolutional Neural Network (CNN) with Python.
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ poetry shell
 4. Check experiments:
 ```dvc exp show```
 
-To run custom experiment, update ```params.yml``` file and run  ```dvc repro``` and then ```dvc exp show```.
+To run a custom experiment, update ```params.yml``` and run ```dvc repro``` and then ```dvc exp show```.
 
 
 ## Code Quality

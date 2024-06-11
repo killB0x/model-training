@@ -3,20 +3,13 @@ import pytest
 from models.create_model import create_model
 from models.predict import accuracy
 
-from keras.models import load_model
-
-
-@pytest.fixture
-def trained_model():
-  trained_model = load_model('./models/model.keras')
-  yield trained_model
-
 # ML Infrastructure -> Test the reproducibility of training.
-def test_nondeterminism_robustness(trained_model):
-  original_score = accuracy(trained_model) # score between 0..100
+def test_nondeterminism_robustness(sample_percentage):
+  original_score = accuracy(create_model(42, sample_percentage), 42, sample_percentage)
 
-  for seed in [1,2]:
-    model_variant = create_model(seed)
+  for seed in [1, 2]:
+    model_variant = create_model(seed, sample_percentage)
+    threshold = 0.03 / sample_percentage # be more lenient with less data
 
-    assert abs(original_score - accuracy(model_variant)) <=0.03
+    assert abs(original_score - accuracy(model_variant, seed, sample_percentage)) <= threshold
 

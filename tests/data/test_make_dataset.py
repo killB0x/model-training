@@ -19,5 +19,8 @@ def x_df(split):
 
 @pytest.mark.parametrize("split", ['train', 'test', 'val'])
 def test_no_duplicates(split, x_df):
+    """
+    Test whether there are no duplicate urls in the dataset.
+    """
     assert len(x_df['url'].unique()) == x_df.shape[0]
     assert x_df.groupby(['label','url']).size().max()==1

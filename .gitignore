@@ -7,3 +7,5 @@ data/external/**/*
 !data/external/*.dvc
 
 **/__pycache__
+
+output.json
