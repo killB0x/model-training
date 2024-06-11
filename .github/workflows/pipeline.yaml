@@ -37,7 +37,7 @@ jobs:
       - name: Run tests
         run: |
           if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            poetry run pytest --ignore=benchmark --all
+            poetry run pytest --ignore=benchmark --full
           else
             poetry run pytest --ignore=benchmark
           fi
@@ -45,7 +45,7 @@ jobs:
       - name: Run benchmark
         run: |
           if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            poetry run pytest tests/benchmark/bench.py --benchmark-json output.json --all
+            poetry run pytest tests/benchmark/bench.py --benchmark-json output.json --full
           else
             poetry run pytest tests/benchmark/bench.py --benchmark-json output.json
           fi
