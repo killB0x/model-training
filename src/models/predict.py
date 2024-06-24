@@ -20,7 +20,7 @@ def accuracy(model, seed = 42, sample_percentage = 1.0):
         y_test = pickle.load(file)
 
 
-    if (sample_percentage < 1):
+    if sample_percentage < 1:
         x_test_sampled, _, y_test_sampled, _ = train_test_split(
             x_test, y_test, test_size=1 - sample_percentage, stratify=y_test, random_state=seed
         )
