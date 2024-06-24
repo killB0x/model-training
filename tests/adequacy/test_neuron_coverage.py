@@ -1,9 +1,9 @@
 import pytest
-from keras.models import load_model
 import pickle
 import numpy as np
-import math
 
+from keras.layers import Conv2D, Dense
+from keras.models import load_model, Model
 from sklearn.model_selection import train_test_split
 
 
@@ -11,6 +11,7 @@ from sklearn.model_selection import train_test_split
 def trained_model():
   trained_model = load_model('./models/model.keras')
   yield trained_model
+
 
 @pytest.fixture
 def test_data(sample_percentage = 1.0):
@@ -24,19 +25,30 @@ def test_data(sample_percentage = 1.0):
 
     return x_test_sampled
 
-def test_neuron_coverage(trained_model, test_data):
-    # TODO: Correct computation of number of activated neurons
-    layer_activations = trained_model.predict(test_data)
-    
+
+@pytest.fixture
+def layer_outputs(trained_model, test_data):
+    # Extract the outputs of specific layers
+    layer_outputs = [layer.output for layer in trained_model.layers if isinstance(layer, (Conv2D, Dense))]
+    if not layer_outputs:
+        raise ValueError("No suitable layer outputs found. Check layer names and types.")
+
+    activation_model = Model(inputs=trained_model.input, outputs=layer_outputs)
+    activations = activation_model.predict(test_data)
+    return activations
+
+
+def test_neuron_coverage(layer_outputs):
+    # Compute the ratio of activated neurons
+    threshold = 0.3
     total_neurons = 0
-    total_activated_neurons = 0
-    
-    for layer, activation in zip([layer for layer in trained_model.layers if 'dense' in layer.name or 'conv' in layer.name], layer_activations):
-        weights = layer.get_weights()[0]
-        biases = layer.get_weights()[1]
+    activated_neurons = 0
 
-        total_neurons += math.prod([dim for dim in weights.shape]) + biases.shape[0]
-        total_activated_neurons += np.sum(activation > 0, axis=0)
+    for layer_activations in layer_outputs:
+        total_neurons += np.prod(layer_activations.shape[1:])  # Exclude the batch size dimension
+        activated_neurons += np.sum(layer_activations > threshold)
 
-    print("Total neuron coverage: ", total_activated_neurons / total_activated_neurons * 100)
+    neuron_coverage = activated_neurons / total_neurons * 100 if total_neurons > 0 else 0
+    print("Total neuron coverage: ", neuron_coverage)
+    return neuron_coverage
     
