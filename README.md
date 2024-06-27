@@ -22,14 +22,32 @@ pip install poetry
 poetry install
 poetry shell
 ```
-3. Run the project:
+4. Run the project:
 ```dvc pull```
 ```dvc repro```
-4. Check experiments:
+5. Check experiments:
 ```dvc exp show```
 
-To run a custom experiment, update ```params.yml``` and run ```dvc repro``` and then ```dvc exp show```.
+To run a custom experiment, update ```params.yml``` and run ```dvc repro``` followed by ```dvc exp show```.
 
+## Testing
+We use [PyTest](https://docs.pytest.org/en/8.2.x/) for testing. 
+
+You can run the tests as follows:
+```bash
+poetry run pytest tests/ --ignore=benchmark
+```
+
+### Benchmarking
+We use [pytest-benchmark](https://pytest-benchmark.readthedocs.io/en/stable/) for benchmarking.
+
+You can run the benchmarks as follows:
+```bash
+poetry run pytest tests/benchmark/bench.py --benchmark-json output.json
+```
+This will generate an `output.json` file with the benchmark results.
+
+*Note: by default, all tests will be run on a 10% random sample of the dataset. To run on the full dataset, add the `--full` flag to either of the commands listed above.*
 
 ## Code Quality
 
