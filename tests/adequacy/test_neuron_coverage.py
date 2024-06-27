@@ -1,3 +1,4 @@
+import math
 import pytest
 import pickle
 import numpy as np
@@ -12,52 +13,55 @@ def trained_model():
     yield model
 
 @pytest.fixture
-def test_data(sample_percentage=1.0):
-    with open('data/processed/x_test.pkl', 'rb') as file:
-        x_test = pickle.load(file)
+def test_dataset():
+    def make_dataset(sample_percentage):
+        with open('data/processed/x_test.pkl', 'rb') as file:
+            x_test = pickle.load(file)
+        
+        if sample_percentage < 1:
+            x_test_sampled, _ = train_test_split(x_test, test_size=1 - sample_percentage, random_state=42)
+        else:
+            x_test_sampled = x_test
+
+        return x_test_sampled
     
-        x_test_sampled, _ = train_test_split(x_test, test_size=1 - 0.05, random_state=42)
-    # if sample_percentage < 1:
-    # else:
-    #     x_test_sampled = x_test
+    return make_dataset
 
-    return x_test_sampled
+def test_neuron_coverage(trained_model, test_dataset, sample_percentage):
+    print(f'Running tests on {sample_percentage:.0%} of the dataset.')
 
-def test_neuron_coverage(trained_model, test_data):
-    # intermediate_models = trained_model
-    # coverage = neuron_coverage(intermediate_models, test_data)
+    test_data = test_dataset(sample_percentage)
 
     trained_model(test_data)
-
     
     intermediate_model = Sequential()
 
     activated_neurons = 0
     total_neurons = 0
 
-    # Define a threshold for activation (e.g., 0.5)
+    # Define a threshold for activation
     threshold = 0.5
 
     for layer in trained_model.layers:
         intermediate_model.add(layer)
         if isinstance(layer, (Conv1D, Dense)):
+            weights = layer.get_weights()[0]
+            biases = layer.get_weights()[1]
+
+            total_neurons += math.prod([dim for dim in weights.shape]) + biases.shape[0]
+
             intermediate_output = intermediate_model.predict(test_data)
 
-            print(intermediate_output.shape)
-            print(layer.output.shape)
+            # scale output to [0, 1]
+            intermediate_output = (intermediate_output - intermediate_output.min()) / (intermediate_output.max() - intermediate_output.min())
 
-            activated_neurons += np.sum(np.array(intermediate_output[1:]) > threshold)
-            total_neurons += np.prod(layer.output.shape[1:])
-
-    
-
-    # Calculate neuron coverage
-    # activated_neurons = sum((np.array(activations) > threshold).sum(axis=0))
-    # total_neurons = sum([np.prod(layer.output_shape[1:]) for layer in trained_model.layers])
+            above_threshold = intermediate_output[1:] > threshold
+            # count true values
+            activated_neurons += above_threshold.sum()
+            all_output = intermediate_output[1:]
+            total_neurons += np.prod(all_output.shape)
 
     coverage = activated_neurons / total_neurons
 
     print(f'Neuron Coverage: {coverage:.2%}')
     assert coverage > 0, "No neurons are being activated!"
-
-# You may need to adjust pytest to properly call and test this code automatically.
