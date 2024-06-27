@@ -34,6 +34,12 @@ jobs:
           poetry run dvc remote modify gdrive gdrive_user_credentials_file .dvc/tmp/gdrive-user-credentials.json
           poetry run dvc pull --with-deps -r gdrive
 
+      - name: Run DVC repro
+        run: |
+          if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            poetry run dvc repro
+          fi
+
       - name: Run tests
         run: |
           if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref }}" == "refs/heads/main" ]; then
@@ -75,3 +81,9 @@ jobs:
 
       - name: Run pylint with dslinter
         run: poetry run pylint src
+
+      - name: Publish new model
+        run: |
+          if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            poetry run dvc push -r gdrive
+          fi
